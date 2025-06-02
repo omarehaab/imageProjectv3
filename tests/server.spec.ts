@@ -8,13 +8,13 @@ describe('POST /upload', () => {
       .post('/upload')
       .attach('image', path.join(__dirname, 'test.jpg'));
     expect(response.status).toBe(200);
-    expect(response.text).toBe('File uploaded successfully!');
+    expect(response.body.message).toBe('File uploaded successfully!');
   });
 
   it('should return 400 if no file is uploaded', async () => {
     const response = await request(app).post('/upload');
     expect(response.status).toBe(400);
-    expect(response.text).toBe('No files were uploaded.');
+    expect(response.body.error).toBe('No files were uploaded.');
   });
 
   it('should return 400 for invalid file type', async () => {
@@ -22,6 +22,7 @@ describe('POST /upload', () => {
       .post('/upload')
       .attach('image', path.join(__dirname, 'test.txt'));
     expect(response.status).toBe(400);
+    expect(response.body.error).toBeDefined();
   });
 
   it('should handle large file upload gracefully', async () => {

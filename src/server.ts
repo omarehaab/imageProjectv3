@@ -29,18 +29,40 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+const fileFilter = (
+  req: Express.Request,
+  file: Express.Multer.File,
+  cb: multer.FileFilterCallback,
+) => {
+  const allowedTypes = ['.jpg', '.jpeg'];
+  const ext = path.extname(file.originalname).toLowerCase();
+  if (allowedTypes.includes(ext)) {
+    cb(null, true);
+  } else {
+    cb(new Error('Only .jpg and .jpeg files are allowed'));
+  }
+};
+
+const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 const uploadHandler: RequestHandler = (req, res) => {
   if (!req.file) {
-    res.status(400).send('No files were uploaded.');
+    (res as any).status(400).json({ error: 'No files were uploaded.' });
     return;
   }
   console.log('Uploaded file:', req.file);
-  res.send('File uploaded successfully!');
+  res.json({ message: 'File uploaded successfully!', filename: req.file.filename });
 };
 
-app.post('/upload', upload.single('image'), uploadHandler);
+import { NextFunction } from 'express';
+
+app.post('/upload', upload.single('image'), (err: any, req: Express.Request, res: Express.Response, next: NextFunction) => {
+  if (err instanceof multer.MulterError || err) {
+    (res as any).status(400).json({ error: err.message });
+  } else {
+    next();
+  }
+}, uploadHandler);
 
 if (process.env.NODE_ENV !== 'test') {
   app.listen(port, () => {

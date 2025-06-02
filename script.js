@@ -18,14 +18,38 @@ function addImageToGallery(src) {
   gallery.appendChild(img);
 }
 
-imageUpload.addEventListener("change", (e) => {
+const errorMessage = document.getElementById("errorMessage");
+
+imageUpload.addEventListener("change", async (e) => {
+  errorMessage.textContent = ''; // Clear previous error
   const file = e.target.files[0];
-  if (file && file.type.startsWith("image/")) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      addImageToGallery(reader.result);
-    };
-    reader.readAsDataURL(file);
+  if (!file) return;
+
+  if (!file.name.toLowerCase().endsWith('.jpg') && !file.name.toLowerCase().endsWith('.jpeg')) {
+    errorMessage.textContent = 'Only .jpg and .jpeg files are allowed.';
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('image', file);
+
+  try {
+    const response = await fetch('/upload', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      errorMessage.textContent = result.error || 'Upload failed';
+      return;
+    }
+
+    // Add uploaded image to gallery using server path
+    addImageToGallery(`/images/${result.filename}`);
+  } catch (error) {
+    errorMessage.textContent = 'Error uploading file';
   }
 });
 
