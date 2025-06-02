@@ -1,13 +1,11 @@
-# Image Project
-
-## Description
-This project is an image processing service built with Node.js and Express. It allows uploading images and resizing them.
-
-## Installation
-Run the following command to install dependencies:
+<<<<<<<
+## Running the Application
+To start the server, run:
 ```
-npm install
+npm start
 ```
+The server listens on port 3000.
+=======
 
 ## Running the Application
 To start the server, run:
@@ -16,28 +14,16 @@ npm start
 ```
 The server listens on port 3000.
 
-## API Endpoints
-
-### POST /upload
-Uploads an image file.
-
-- **Request:** Multipart/form-data with a single file field named `image`.
-- **Response:**
-  - `200 OK` - File uploaded successfully.
-  - `400 Bad Request` - No files were uploaded.
-
-Example using curl:
+## Accessing the Frontend
+The frontend is served as static files by the backend server. After starting the backend server, open your browser and navigate to:
 ```
-curl -X POST -F "image=@path_to_your_image.jpg" http://localhost:3000/upload
+http://localhost:3000/
 ```
+This will load the frontend UI (index.html and related assets).
 
-## Running Tests
-To run all tests (Jasmine and SuperTest), use:
+### Building the Frontend
+If you want to build the frontend assets for production, run:
 ```
-npm test
-
-### GET /
-Serves static files from the project root directory.
-
-- **Request:** GET request to the root URL.
-- **Response:** Serves static files such as index.html with status 200.
+npm run build:frontend
+```
+This will bundle the frontend files using webpack.
