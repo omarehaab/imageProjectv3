@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import multer from 'multer';
 
-const app = express();
+export const app = express();
 const port = 3000;
 const publicDir = path.join(__dirname, '..');
 app.use(express.static(publicDir));
@@ -42,6 +42,8 @@ const uploadHandler: RequestHandler = (req, res) => {
 
 app.post('/upload', upload.single('image'), uploadHandler);
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+  });
+}

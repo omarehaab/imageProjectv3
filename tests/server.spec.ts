@@ -1,27 +1,6 @@
 import request from 'supertest';
-import express, { Request, Response } from 'express';
-import multer from 'multer';
 import path from 'path';
-
-const app = express();
-
-const storage = multer.diskStorage({
-  destination: (req: Request, file: Express.Multer.File, cb: (error: Error | null, destination: string) => void) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req: Request, file: Express.Multer.File, cb: (error: Error | null, filename: string) => void) => {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage: storage });
-
-app.post('/upload', upload.single('image'), (req: Request, res: Response): Response => {
-  if (!req.file) {
-    return res.status(400).send('No files were uploaded.');
-  }
-  return res.status(200).send('File uploaded successfully!');
-});
+import { app } from '../src/server';
 
 describe('POST /upload', () => {
   it('should upload an image file successfully', async () => {
@@ -36,5 +15,20 @@ describe('POST /upload', () => {
     const response = await request(app).post('/upload');
     expect(response.status).toBe(400);
     expect(response.text).toBe('No files were uploaded.');
+  });
+
+  it('should return 400 for invalid file type', async () => {
+    const response = await request(app)
+      .post('/upload')
+      .attach('image', path.join(__dirname, 'test.txt'));
+    expect(response.status).toBe(400);
+  });
+
+  it('should handle large file upload gracefully', async () => {
+    // Assuming test-large.jpg is a large file placed in the test directory
+    const response = await request(app)
+      .post('/upload')
+      .attach('image', path.join(__dirname, 'test-large.jpg'));
+    expect([200, 413]).toContain(response.status); // 413 Payload Too Large is possible
   });
 });

@@ -1,8 +1,7 @@
 {
   "name": "image-project",
   "version": "1.0.0",
-  "main": "script.js",
-  "type": "module",
+  "main": "dist/server.js",
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
