@@ -8,6 +8,14 @@ const port = 3000;
 const publicDir = path.join(__dirname, '..');
 app.use(express.static(publicDir));
 
+// Serve static files from dist under /dist path
+app.use('/dist', express.static(path.join(__dirname, '..', 'dist')));
+
+// Serve index.html on root route
+app.get('/', (req: Request, res: Response) => {
+  res.sendFile(path.join(publicDir, 'index.html'));
+});
+
 const storage = multer.diskStorage({
   destination: (
     req: Express.Request,

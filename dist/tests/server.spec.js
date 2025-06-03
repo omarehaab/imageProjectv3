@@ -21,18 +21,19 @@ describe('POST /upload', () => {
             .post('/upload')
             .attach('image', path_1.default.join(__dirname, 'test.jpg'));
         expect(response.status).toBe(200);
-        expect(response.text).toBe('File uploaded successfully!');
+        expect(response.body.message).toBe('File uploaded successfully!');
     }));
     it('should return 400 if no file is uploaded', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(server_1.app).post('/upload');
         expect(response.status).toBe(400);
-        expect(response.text).toBe('No files were uploaded.');
+        expect(response.body.error).toBe('No files were uploaded.');
     }));
     it('should return 400 for invalid file type', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(server_1.app)
             .post('/upload')
             .attach('image', path_1.default.join(__dirname, 'test.txt'));
         expect(response.status).toBe(400);
+        expect(response.body.error).toBeDefined();
     }));
     it('should handle large file upload gracefully', () => __awaiter(void 0, void 0, void 0, function* () {
         // Assuming test-large.jpg is a large file placed in the test directory

@@ -9,5 +9,6 @@
     "strict": true,
     "skipLibCheck": true,
     "lib": ["dom", "es2015.promise", "es5"]
-  }
+  },
+  "include": ["src/**/*"]
 }
