@@ -66,7 +66,9 @@ import { NextFunction } from 'express';
 
 app.post('/upload', upload.single('image'), (err: any, req: Express.Request, res: Express.Response, next: NextFunction) => {
   if (err instanceof multer.MulterError || err) {
+    console.log('Upload error:', err.message);
     (res as any).status(400).json({ error: err.message });
+    return;
   } else {
     next();
   }

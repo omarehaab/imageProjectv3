@@ -4,7 +4,13 @@ import path from 'path';
 jest.mock('../src/utils/imageProcessor', () => ({
   resizeImage: jest.fn(async (filename: string, width: number, height: number) => {
     const outputDir = path.join(__dirname, '../images');
-    return path.join(outputDir, `${filename}_${width}x${height}.jpg`);
+    const outputPath = path.join(outputDir, `${filename}_${width}x${height}.jpg`);
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir, { recursive: true });
+    }
+    // Create a dummy file to simulate the resized image
+    fs.writeFileSync(outputPath, 'dummy content');
+    return outputPath;
   }),
 }));
 

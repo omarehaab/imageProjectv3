@@ -18,11 +18,17 @@ describe('POST /upload', () => {
   });
 
   it('should return 400 for invalid file type', async () => {
-    const response = await request(app)
-      .post('/upload')
-      .attach('image', path.join(__dirname, 'test.txt'));
-    expect(response.status).toBe(400);
-    expect(response.body.error).toBeDefined();
+    try {
+      const response = await request(app)
+        .post('/upload')
+        .attach('image', path.join(__dirname, 'test.txt'))
+        .timeout({ response: 5000, deadline: 10000 });
+      expect(response.status).toBe(400);
+      expect(response.body.error).toBeDefined();
+    } catch (error) {
+      console.error('Test error:', error);
+      throw error;
+    }
   });
 
   it('should handle large file upload gracefully', async () => {
