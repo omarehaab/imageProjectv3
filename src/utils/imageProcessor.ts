@@ -12,6 +12,14 @@ export async function resizeImage(
   const inputPath = path.join(__dirname, '../../uploads', filename);
   const outputPath = path.join(outputDir, `${filename}_${width}x${height}.jpg`);
 
+  if (!fs.existsSync(inputPath)) {
+    throw new Error(`Input file does not exist: ${inputPath}`);
+  }
+
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
+
   if (fs.existsSync(outputPath)) {
     return outputPath;
   }
