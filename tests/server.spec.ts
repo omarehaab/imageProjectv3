@@ -14,7 +14,7 @@ describe('POST /upload', () => {
   it('should return 400 if no file is uploaded', async () => {
     const response = await request(app).post('/upload');
     expect(response.status).toBe(400);
-    expect(response.body.error).toBe('No files were uploaded.');
+    expect(response.body.error).toBe('No files were uploaded or invalid file type.');
   });
 
   it('should return 400 for invalid file type', async () => {

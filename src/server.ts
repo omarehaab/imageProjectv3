@@ -47,7 +47,8 @@ const fileFilter = (
   if (allowedTypes.includes(ext)) {
     cb(null, true);
   } else {
-    cb(new Error('Only .jpg and .jpeg files are allowed'));
+    // Instead of error, reject file silently
+    cb(null, false);
   }
 };
 
@@ -55,7 +56,7 @@ const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 const uploadHandler: RequestHandler = (req, res) => {
   if (!req.file) {
-    (res as any).status(400).json({ error: 'No files were uploaded.' });
+    (res as any).status(400).json({ error: 'No files were uploaded or invalid file type.' });
     return;
   }
   console.log('Uploaded file:', req.file);

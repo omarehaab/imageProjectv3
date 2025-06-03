@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1748978254207" clover="3.2.0">
-  <project timestamp="1748978254207" name="All files">
-    <metrics statements="36" coveredstatements="32" conditionals="8" coveredconditionals="6" methods="7" coveredmethods="5" elements="51" coveredelements="43" complexity="0" loc="36" ncloc="36" packages="1" files="1" classes="1"/>
+<coverage generated="1748984545747" clover="3.2.0">
+  <project timestamp="1748984545748" name="All files">
+    <metrics statements="36" coveredstatements="28" conditionals="8" coveredconditionals="3" methods="7" coveredmethods="4" elements="51" coveredelements="35" complexity="0" loc="36" ncloc="36" packages="1" files="1" classes="1"/>
     <file name="server.ts" path="U:\Image Project\src\server.ts">
-      <metrics statements="36" coveredstatements="32" conditionals="8" coveredconditionals="6" methods="7" coveredmethods="5"/>
+      <metrics statements="36" coveredstatements="28" conditionals="8" coveredconditionals="3" methods="7" coveredmethods="4"/>
       <line num="1" count="1" type="stmt"/>
       <line num="2" count="1" type="stmt"/>
       <line num="4" count="1" type="stmt"/>
@@ -23,23 +23,23 @@
       <line num="46" count="3" type="stmt"/>
       <line num="47" count="3" type="cond" truecount="2" falsecount="0"/>
       <line num="48" count="2" type="stmt"/>
-      <line num="50" count="1" type="stmt"/>
-      <line num="54" count="1" type="stmt"/>
-      <line num="56" count="1" type="stmt"/>
-      <line num="57" count="3" type="cond" truecount="1" falsecount="0"/>
-      <line num="58" count="1" type="stmt"/>
-      <line num="59" count="1" type="stmt"/>
-      <line num="61" count="2" type="stmt"/>
+      <line num="51" count="1" type="stmt"/>
+      <line num="55" count="1" type="stmt"/>
+      <line num="57" count="1" type="stmt"/>
+      <line num="58" count="4" type="cond" truecount="1" falsecount="0"/>
+      <line num="59" count="2" type="stmt"/>
+      <line num="60" count="2" type="stmt"/>
       <line num="62" count="2" type="stmt"/>
-      <line num="67" count="1" type="stmt"/>
-      <line num="68" count="1" type="cond" truecount="3" falsecount="1"/>
-      <line num="69" count="1" type="stmt"/>
-      <line num="70" count="1" type="stmt"/>
-      <line num="71" count="1" type="stmt"/>
-      <line num="73" count="0" type="stmt"/>
-      <line num="77" count="1" type="cond" truecount="0" falsecount="1"/>
-      <line num="78" count="0" type="stmt"/>
+      <line num="63" count="2" type="stmt"/>
+      <line num="68" count="1" type="stmt"/>
+      <line num="69" count="0" type="cond" truecount="0" falsecount="4"/>
+      <line num="70" count="0" type="stmt"/>
+      <line num="71" count="0" type="stmt"/>
+      <line num="72" count="0" type="stmt"/>
+      <line num="74" count="0" type="stmt"/>
+      <line num="78" count="1" type="cond" truecount="0" falsecount="1"/>
       <line num="79" count="0" type="stmt"/>
+      <line num="80" count="0" type="stmt"/>
     </file>
   </project>
 </coverage>
