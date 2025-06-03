@@ -16,10 +16,18 @@ export async function resizeImage(
     return outputPath;
   }
 
-  await sharp(inputPath)
-    .resize(width, height)
-    .toFormat('jpeg')
-    .toFile(outputPath);
+  try {
+    await sharp(inputPath)
+      .resize(width, height)
+      .toFormat('jpeg')
+      .toFile(outputPath);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(`Failed to process image: ${error.message}`);
+    } else {
+      throw new Error('Failed to process image: Unknown error');
+    }
+  }
 
   return outputPath;
 }
